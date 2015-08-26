@@ -1,0 +1,497 @@
+/* BUBBLES */
+
+[class*="bubble-"] {
+  position: relative;
+}
+/*[class*="bubble-"] > * {
+  border-color: inherit
+}*/
+.bubble-triangle-isosceles, .bubble-triangle-right, .bubble-triangle-border {
+  padding: 16px;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 8px
+}
+.bubble-triangle-isosceles:after, .bubble-triangle-isosceles:before, .bubble-triangle-right:after, .bubble-triangle-right:before, .bubble-triangle-border:before, .bubble-triangle-border:after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  display: block;
+  width: 0
+}
+.bubble-oval-thought:before, .bubble-oval-thought:after, .bubble-oval-quotes p:before, .bubble-oval-quotes p:after, .bubble-oval-thought-border:before, .bubble-oval-thought-border:after {
+  content: "";
+  position: absolute;
+  display: block
+}
+.bubble-triangle-isosceles.right {
+  margin-left: 16px
+}
+.bubble-triangle-isosceles.left {
+  margin-right: 16px
+}
+.bubble-triangle-isosceles.top:after, .bubble-triangle-isosceles.top:before {
+  left: 50%;
+  border-right-color: transparent;
+  border-left-color: transparent
+}
+.bubble-triangle-isosceles.top:after {
+  bottom: -12px;
+  border-width: 14px 14px 0;
+  margin-left: -14px
+}
+.bubble-triangle-isosceles.top:before {
+  bottom: -16px;
+  border-width: 16px 16px 0;
+  margin-left: -16px
+}
+.bubble-triangle-isosceles.bottom:after, .bubble-triangle-isosceles.bottom:before {
+  right: 50%;
+  bottom: auto;
+  left: auto;
+  border-right-color: transparent;
+  border-left-color: transparent
+}
+.bubble-triangle-isosceles.bottom:after {
+  top: -12px;
+  border-width: 0 14px 14px;
+  margin-right: -14px
+}
+.bubble-triangle-isosceles.bottom:before {
+  top: -16px;
+  border-width: 0 16px 16px;
+  margin-right: -16px
+}
+.bubble-triangle-isosceles.right:after, .bubble-triangle-isosceles.right:before {
+  top: 50%;
+  bottom: auto;
+  border-top-color: transparent;
+  border-bottom-color: transparent
+}
+.bubble-triangle-isosceles.right:after {
+  left: -12px;
+  border-width: 14px 14px 14px 0;
+  margin-top: -14px
+}
+.bubble-triangle-isosceles.right:before {
+  left: -16px;
+  border-width: 16px 16px 16px 0;
+  margin-top: -16px
+}
+.bubble-triangle-isosceles.left:after, .bubble-triangle-isosceles.left:before {
+  top: 50%;
+  bottom: auto;
+  left: auto;
+  border-top-color: transparent;
+  border-bottom-color: transparent
+}
+.bubble-triangle-isosceles.left:after {
+  right: -12px;
+  border-width: 14px 0 14px 14px;
+  margin-top: -14px
+}
+.bubble-triangle-isosceles.left:before {
+  right: -16px;
+  border-width: 16px 0 16px 16px;
+  margin-top: -16px
+}
+.bubble-triangle-right:after, .bubble-triangle-right:before {
+  bottom: -32px;
+  border-width: 32px 0 0 32px;
+  margin-left: -32px
+}
+.bubble-triangle-right.right {
+  margin-left: 32px
+}
+.bubble-triangle-right.left {
+  margin-right: 32px
+}
+.bubble-triangle-right.top:after, .bubble-triangle-right.top:before {
+  left: 50%;
+  border-right-color: transparent;
+  border-left-color: transparent
+}
+.bubble-triangle-right.top:after {
+  bottom: -28px;
+  border-width: 30px 0 0 30px;
+  margin-left: -32px
+}
+.bubble-triangle-right.top:before {
+  bottom: -32px;
+  border-width: 32px 0 0 32px;
+  margin-left: -32px
+}
+.bubble-triangle-right.bottom:after, .bubble-triangle-right.bottom:before {
+  right: 50%;
+  bottom: auto;
+  left: auto;
+  border-top-color: transparent;
+  border-bottom-color: transparent
+}
+.bubble-triangle-right.bottom:after {
+  top: -28px;
+  border-width: 30px 30px 0 0;
+  margin-right: -30px
+}
+.bubble-triangle-right.bottom:before {
+  top: -32px;
+  border-width: 32px 32px 0 0;
+  margin-right: -32px
+}
+.bubble-triangle-right.right:after, .bubble-triangle-right.right:before, .bubble-triangle-right.left:after, .bubble-triangle-right.left:before {
+  top: 50%;
+  bottom: auto;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  margin-top: -16px
+}
+.bubble-triangle-right.right:after, .bubble-triangle-right.left:after {
+  margin-top: -16px
+}
+.bubble-triangle-right.right:after {
+  left: 4px;
+  border-width: 30px 30px 0 0
+}
+.bubble-triangle-right.right:before {
+  left: 0;
+  border-width: 32px 32px 0 0
+}
+.bubble-triangle-right.left:after, .bubble-triangle-right.left:before {
+  left: auto
+}
+.bubble-triangle-right.left:after {
+  right: -28px;
+  border-width: 30px 0 0 30px
+}
+.bubble-triangle-right.left:before {
+  right: -32px;
+  border-width: 32px 0 0 32px
+}
+.bubble-triangle-border {
+  background: white;
+  color: #3f595f
+}
+.bubble-triangle-border.right {
+  margin-left: 32px
+}
+.bubble-triangle-border.left {
+  margin-right: 32px
+}
+.bubble-triangle-border.top:before {
+  bottom: -19px;
+  left: 50%;
+  border-width: 19px 19px 0;
+  border-right-color: transparent;
+  border-left-color: transparent
+}
+.bubble-triangle-border.top:after {
+  bottom: -15px;
+  left: 50%;
+  border-width: 17px 17px 0;
+  border-color: white transparent;
+  margin-left: 2px
+}
+.bubble-triangle-border.bottom:before {
+  top: -19px;
+  bottom: auto;
+  left: auto;
+  right: 50%;
+  border-width: 0 19px 19px;
+  border-right-color: transparent;
+  border-left-color: transparent
+}
+.bubble-triangle-border.bottom:after {
+  top: -15px;
+  bottom: auto;
+  left: auto;
+  right: 50%;
+  border-width: 0 17px 17px;
+  border-color: white transparent;
+  margin-right: 2px
+}
+.bubble-triangle-border.right:before {
+  top: 50%;
+  bottom: auto;
+  left: -19px;
+  border-width: 19px 19px 19px 0;
+  border-top-color: transparent;
+  border-bottom-color: transparent
+}
+.bubble-triangle-border.right:after {
+  top: 50%;
+  bottom: auto;
+  left: -16px;
+  border-width: 17px 17px 17px 0;
+  border-color: transparent white;
+  margin-top: 2px
+}
+.bubble-triangle-border.left:before {
+  top: 50%;
+  bottom: auto;
+  left: auto;
+  right: -19px;
+  border-width: 19px 0 19px 19px;
+  border-top-color: transparent;
+  border-bottom-color: transparent
+}
+.bubble-triangle-border.left:after {
+  top: 50%;
+  bottom: auto;
+  left: auto;
+  right: -16px;
+  border-width: 17px 0 17px 17px;
+  border-color: transparent white;
+  margin-top: 2px
+}
+.bubble-oval-thought {
+  padding: 8px 16px;
+  border-top-left-radius: 16px 16px;
+  border-top-right-radius: 16px 16px;
+  border-bottom-right-radius: 16px 16px;
+  border-bottom-left-radius: 16px 16px;
+  border-radius: 16px 16px;
+  border-radius: 16px / 16px
+}
+.bubble-oval-thought.in.top {
+  margin: -65px 4px 4px
+}
+.bubble-oval-thought.in.right {
+  margin: 4px 4px 4px 65px
+}
+.bubble-oval-thought.in.bottom {
+  margin: 65px 4px 4px
+}
+.bubble-oval-thought.in.left {
+  margin: 4px 4px 4px -65px
+}
+.bubble-oval-thought.right {
+  margin-left: 64px
+}
+.bubble-oval-thought.right:before {
+  left: -40px
+}
+.bubble-oval-thought.right:after {
+  left: -64px
+}
+.bubble-oval-thought.left {
+  margin-right: 64px
+}
+.bubble-oval-thought.left:before {
+  right: -40px
+}
+.bubble-oval-thought.left:after {
+  right: -64px
+}
+.bubble-oval-thought:before, .bubble-oval-thought:after {
+  top: 50%;
+  background: inherit
+}
+.bubble-oval-thought:before {
+  width: 32px;
+  height: 32px;
+  border-radius: 32px;
+  margin-top: -16px
+}
+.bubble-oval-thought:after {
+  width: 16px;
+  height: 16px;
+  border-radius: 16px;
+  margin-top: -8px
+}
+.bubble-oval-thought.popover:before, .bubble-oval-thought.popover:after {
+  width: 0;
+  height: 0;
+  -webkit-transition: width .15s, height .15s, margin .15s;
+  -moz-transition: width .15s, height .15s, margin .15s;
+  -o-transition: width .15s, height .15s, margin .15s;
+  transition: width .15s, height .15s, margin .15s
+}
+.bubble-oval-thought.popover.in:before {
+  width: 32px;
+  height: 32px
+}
+.bubble-oval-thought.popover.in:after {
+  width: 16px;
+  height: 16px
+}
+.bubble-oval-thought-border, .bubble-oval-thought-border:before {
+  border-width: 2px;
+  border-style: solid
+}
+.bubble-oval-thought-border {
+  padding: 8px 16px;
+  border-top-left-radius: 16px 16px;
+  border-top-right-radius: 16px 16px;
+  border-bottom-right-radius: 16px 16px;
+  border-bottom-left-radius: 16px 16px;
+  border-radius: 16px 16px;
+  border-radius: 16px / 16px
+}
+.bubble-oval-thought-border.in.right {
+  margin: 4px 4px 4px 65px
+}
+.bubble-oval-thought-border.in.left {
+  margin: 4px 4px 4px -65px
+}
+.bubble-oval-thought-border.right {
+  margin-left: 32px
+}
+.bubble-oval-thought-border.right:before {
+  left: -56px
+}
+.bubble-oval-thought-border.left {
+  margin-left: -32px
+}
+.bubble-oval-thought-border.left:before {
+  right: -56px
+}
+.bubble-oval-thought-border:before {
+  z-index: 10;
+  top: 50%;
+  background-color: inherit
+}
+.bubble-oval-thought-border:before {
+  width: 32px;
+  height: 32px;
+  border-radius: 48px;
+  margin-top: -24px
+}
+.bubble-oval-thought-border.popover:before {
+  width: 0;
+  height: 0;
+  -webkit-transition: width .15s, height .15s, margin .15s;
+  -moz-transition: width .15s, height .15s, margin .15s;
+  -o-transition: width .15s, height .15s, margin .15s;
+  transition: width .15s, height .15s, margin .15s
+}
+.bubble-oval-thought-border.popover.in:before {
+  width: 48px;
+  height: 48px
+}
+.bubble-popover {
+  position: relative;
+  /*color: #3f595f;*/
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  border: 8px solid #dd4814;
+  border-radius: 4px;
+  max-height: 100%;
+  margin-bottom: 1em;
+}
+.bubble-popover .bubble-title {
+  color: white;
+  background-color: #dd4814;
+  padding: 1.75px 7px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  margin: -1px -1px 0
+}
+.bubble-popover .bubble-title:empty {
+  display: none
+}
+.bubble-popover .bubble-title>* {
+  margin-top: 0
+}
+.bubble-popover .arrow, .bubble-popover .arrow:after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid
+}
+.bubble-popover .arrow {
+  border-width: 18px
+}
+.bubble-popover .arrow:after {
+  border-width: 16px;
+  content: ""
+}
+.bubble-popover.top .arrow {
+  left: 50%;
+  margin-left: -16px;
+  border-bottom-width: 0;
+  border-top-color: inherit;
+  bottom: -18px
+}
+.bubble-popover.top .arrow:after {
+  bottom: 3px;
+  margin-left: -16px;
+  border-bottom-width: 0;
+  /*border-top-color: white*/
+}
+.bubble-popover.right .arrow {
+  top: 50%;
+  left: -18px;
+  margin-top: -16px;
+  border-left-width: 0;
+  border-right-color: inherit
+}
+.bubble-popover.right .arrow:after {
+  left: 3px;
+  bottom: -16px;
+  border-left-width: 0;
+  /*border-right-color: white*/
+}
+.bubble-popover.bottom .arrow {
+  left: 50%;
+  margin-left: -16px;
+  border-top-width: 0;
+  border-bottom-color: inherit;
+  top: -18px
+}
+.bubble-popover.bottom .arrow:after {
+  top: 3px;
+  margin-left: -16px;
+  border-top-width: 0;
+  border-bottom-color: inherit
+}
+.bubble-popover.left .arrow {
+  top: 50%;
+  right: -18px;
+  margin-top: -16px;
+  border-right-width: 0;
+  border-left-color: inherit
+}
+.bubble-popover.left .arrow:after {
+  right: 3px;
+  border-right-width: 0;
+  /*border-left-color: white;*/
+  bottom: -16px
+}
+.bubble-primary {
+  border-color: #0c8ecf
+}
+.bubble-primary .bubble-title {
+  background-color: #0c8ecf;
+  color: white;
+}
+.bubble-success {
+  border-color: #468847; /* #66c315 */
+}
+.bubble-success .bubble-title {
+  background-color: #468847;
+  color: white;
+}
+.bubble-warning {
+  border-color: #ff9f06
+}
+.bubble-warning .bubble-title {
+  background-color: #ff9f06;
+  color: white;
+}
+.bubble-danger {
+  border-color: #e54c4d
+}
+.bubble-danger .bubble-title {
+  background-color: #e54c4d;
+  color: white;
+}
+.bubble-info {
+  border-color: #31b954
+}
+.bubble-info .bubble-title {
+  background-color: #31b954;
+  color: white;
+}

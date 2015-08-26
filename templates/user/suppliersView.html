@@ -1,0 +1,52 @@
+<div class="table-fixedheader-outer-container">
+  <div class="table-fixedheader-header">&nbsp;</div>
+  <div class="table-fixedheader-inner-container">
+
+    <table class="table table-striped table-minimise-col1">
+      <thead>
+        <tr>
+          <th></th>
+          <th>
+            <div>Company</div>
+          </th>
+          <th width="10%">
+            <div>Issues</div>
+          </th>
+          <th width="12%">
+            <div>SKUs in progress</div>
+          </th>
+          <th width="10%">
+            <div>Live products</div>
+          </th>
+          <th width="10%">
+            <div>Account ID</div>
+          </th>
+          <th width="10%">
+            <div>Date Registered</div>
+          </th>
+          <th width="10%">
+            <div>ABN/ACN</div>
+          </th>
+          <th width="8%">
+            <div>website</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(i, v) in activeData | orderBy:currentTempData.orderableAttributes track by $index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ v.Company }}</td>
+          <td class="text-center">{{ _.getByPath(v, 'Issues.length') || '&mdash;' }}</td>
+          <td class="text-center">{{ _.getByPath(v, 'proposedSkus.length') || '&mdash;' }}</td>
+          <td class="text-center">{{ _.getByPath(v, 'Products.length') || '&mdash;' }}</td>
+          <td>{{ v["Account ID"] }}</td>
+          <td class="nowrap">{{ v["Date Registered"] }}</td>
+          <td>{{ v["ABN/ACN"] }}</td>
+          <td>{{ v.website }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>

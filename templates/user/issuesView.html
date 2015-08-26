@@ -1,0 +1,77 @@
+<div class="padding-1x issuesView" id="issuesViewContainer" ng-init="viewFunctions.applyMasonry()">
+  <style scoped>
+  .issuesView-masonry {
+    width: 30%;
+    margin: 0 1%;
+  }
+  </style>
+  <!-- New Issue Form -->
+  <div class="issuesView-masonry">
+    <form class="bubble-popover" name="formNewModels.Issues._validation" ng-init="formNewModels.Issues.StepsToComplete = [{}]" ng-submit="formNewModels.Issues = schema['data.Issues'].viewFunctions.formSubmit(formNewModels.Issues, data.Issues, $event)" novalidate>
+
+      <!--<pre class="btn-xs">{{ schema['data.Issues'].viewFunctions | json }}</pre><pre>{{ formNewModels.Issues._validation.Subject.$invalid | json }}</pre>-->
+
+      <div class="bubble-title">New Issue</div>
+      <ul class="bubble-content list-group small">
+        <li class="list-group-item padding-half" ng-class="{ 'has-error': formNewModels.Issues._validation.Subject.$invalid && formNewModels.Issues._validation.Subject.$dirty }">
+
+          <span>Assign to:</span>
+          <select class="btn-default btn-xs btn-block" name="Assignee" ng-model="formNewModels.Issues.Assignee" ng-options='schema["data.Issues"].viewFunctions.selectValue(person.firstname, person.lastname, person.Company) as schema["data.Issues"].viewFunctions.selectLabel(person.firstname, person.lastname, person.Company) for person in data.People' required></select>
+
+          <span>Select supplier:</span>
+          <select class="btn-default btn-xs btn-block" name="Supplier_ID" ng-model="formNewModels.Issues.Supplier_ID" ng-options="supplier['Account ID'] as supplier.Company for supplier in data.Suppliers" required></select>
+
+          <span>Issue subject:</span>
+          <input class="input-sm form-control btn-block" placeholder="Choose a title" type="text" name="Subject" ng-model="formNewModels.Issues.Subject" required />
+
+        </li>
+        <li class="list-group-item padding-half" ng-repeat="(key, step) in formNewModels.Issues.StepsToComplete track by $index">
+
+          <button type="button padding-half" class="close" title="Remove step" ng-if="formNewModels.Issues.StepsToComplete.length > 1" ng-click="formNewModels.Issues.StepsToComplete.splice(key, 1)">&times;</button>
+
+          <div>Describe a step to complete this issue</div>
+          <textarea class="input-sm form-control btn-block" placeholder="New step" name="StepsToComplete[{{ key }}]" ng-model="formNewModels.Issues.StepsToComplete[key].Description" msd-elastic required></textarea>
+        </li>
+        <li class="list-group-item padding-half">
+          <div class="clearfix">
+            <select class="btn-default btn-xs text-capitalize" name="Type" ng-model="formNewModels.Issues.Type" ng-options="type.v as type.l for type in [{l:'Normal', v:'normal'}, {l:'Priority', v:'warning'}, {l:'Critical', v:'danger'}]" required></select>
+            <div class="pull-right">
+              <button type="button" ng-disabled="!formNewModels.Issues.StepsToComplete[formNewModels.Issues.StepsToComplete.length - 1].Description" class="btn btn-xs btn-primary" ng-click="viewFunctions.addStep(formNewModels.Issues.StepsToComplete)">More steps</button>
+              <span class="pull-right">&nbsp;</span>
+              <button type="submit" class="btn btn-xs btn-{{ formNewModels.Issues._validation.$valid ? 'success' : 'inverse' }}" ng-disabled="formNewModels.Issues._validation.$invalid">{{ formNewModels.Issues._validation.$invalid ? 'Enter details' : 'Create' }}</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </div>
+
+  <div class="issuesView-masonry" ng-repeat="(key, issue) in data.Issues track by $index" ng-init="fractionDone = (_.where(issue.StepsToComplete, { Status: 'success' }).length / _.getByPath(issue, 'StepsToComplete.length') * 100).toFixed(0)">
+    <div class="bubble-popover bubble-{{ issue.Type }}">
+      <div class="bubble-title">
+        <div class="fill-width-container">
+          <button class="close">&times;</button>
+          <i ng-if="issue.Type === 'success'" class="fa fa-check-circle fa-2x pull-left block"></i>
+          <div class="fill-width-remainder">
+            <strong class="block">{{ issue.Company || _.find(data.Suppliers, { 'Account ID': issue.Supplier_ID }).Company }} <small class="pull-right text-uppercase">{{ momentjs(issue.createdAt).fromNow() }}</small></strong>
+            <div class="pull-left">{{ issue.Subject }}</div>
+          </div>
+        </div>
+        <div class="progress btn-block">
+          <div class="progress-bar progress-bar-{{ issue.Type }}" role="progressbar" style="width:{{ fractionDone }}%;">
+            <span>{{ fractionDone > 0 ? fractionDone + '% done' : '' }}</span>
+          </div>
+        </div>
+      </div>
+      <ul class="bubble-content list-group small">
+        <li ng-repeat="step in issue.StepsToComplete track by $index" class="fill-width-container padding-half list-group-item list-group-item-{{ step.Status }}">
+          <i ng-if="step.Status !== 'success'" class="pull-left padding-half fa fa-hand-o-right fa-lg"></i>
+          <i ng-if="step.Status === 'success'" class="pull-left padding-half fa fa-check fa-lg"></i>
+          <div class="fill-width-remainder">
+            <div class="padding-half">{{ step.Description }}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

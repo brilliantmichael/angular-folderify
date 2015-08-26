@@ -1,0 +1,82 @@
+<div class="fill-width-container">
+
+  <div id="productsView_headerGroupRight" class="pull-right text-right fade hide">
+    <small class="block text-muted">Title similarity at least:</small>
+    <select class="btn-default btn-xs btn-block" ng-init="selectSimilarity = .5" ng-model="selectSimilarity" ng-options='((n*100) + "%") for n in [1,.9,.8,.7,.6,.5]'></select>
+    <button class="btn btn-default btn-sm pull-right" type="button" ng-disabled="!data.$flaggedProducts" ng-click="viewFunctions.exportTable(data.$flaggedProducts)">Save results</button>
+    <button class="btn btn-default btn-sm pull-right" type="button" ng-disabled="!data.$flaggedProducts.length" ng-click="data.$flaggedProducts = []">Clear results</button>
+    <div id="productsView_uploadButton" class="pull-left" flow-init flow-files-submitted="viewFunctions.onFileInput($flow, selectSimilarity)">
+      <span class="btn btn-default btn-file btn-sm">
+        <i class="fa fa-upload"></i>
+        <input id="productsView_fileinput" type="file" flow-btn/>
+      </span>
+    </div>
+  </div>
+
+  <div class="fill-width-remainder">
+    <h4>
+      <div class="padding-half">
+        Pricing comparator
+        <div class="small">Upload a CSV/Excel file to compare to Connections products (displaying {{ data.$flaggedProducts.length || '0' }} flagged items)</div>
+      </div>
+      <div class="padding-half">
+        <div class="progress progress-striped active small margin-bottom-0">
+          <div class="progress-bar progress-bar-success" id="productsView_progressBar" role="progressbar" id="productsView_progressBar" ng-init="viewFunctions.init(data.Products)">
+            <span id="productsView_progressText">Preparing 0 / {{ data.Products.length }} products...</span> <strong id="productsView_progressNumber">0</strong>
+          </div>
+        </div>
+      </div>
+    </h4>
+  </div>
+
+</div>
+
+<!--<pre>{{ _.find(data.$flaggedProducts, { dm_title: "Silkman Pinot Noir 2013" }) | json }}</pre>-->
+<div class="table-fixedheader-outer-container fade hide" id="productsView_tableOuterContainer">
+  <div class="table-fixedheader-header">&nbsp;</div>
+  <div class="table-fixedheader-inner-container">
+    <table class="table table-condensed table-striped table-fixedheader table-minimise-collast">
+      <thead>
+        <tr>
+          <th>
+            <div>Retailer's title</div>
+          </th>
+          <th>
+            <div>Competitor title</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Title similarity</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Retailer's price</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Competitor price</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Price difference</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Sheet name</div>
+          </th>
+          <th style="width:1%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="product in data.$flaggedProducts | orderBy:'-title_similarity' track by $index">
+          <td>{{ product.dm_title }}</td>
+          <td>{{ product.cm_title }}</td>
+          <td>{{ (product.title_similarity * 100).toFixed(2) + '%' }}</td>
+          <td>{{ product.dm_price.toFixed(2) }}</td>
+          <td>{{ product.cm_price }}</td>
+          <td class="text-danger">{{ product.price_difference.toFixed(2) }}</td>
+          <td>{{ product.sheet_name }}</td>
+          <td>
+            <button type="button" class="close" title="Remove" ng-click="viewFunctions.removeProduct(data.$flaggedProducts, { dm_title: product.dm_title, cm_title: product.cm_title, sheet_name: product.sheet_name })"><i class="fa fa-remove"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

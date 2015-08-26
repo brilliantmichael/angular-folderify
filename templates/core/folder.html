@@ -1,0 +1,43 @@
+<div class="folder" ng-init="tempData = getTempData(data, tempData, key); displayTitles = data._displayKeys; displayTitle = currentTempData.labelMap[key] ? currentTempData.labelMap[key] : (data[data._displayKey] ? data[data._displayKey] : (!data.length && _.instanceOf(key, 'number') ? key + 1 : key));">
+
+  <input type="checkbox" id="{{ tempData.path }}" ng-model="tempData.expanded" />
+
+  <label class="{{ data.length || !_.instanceOf(data, 'Array') ? '' : 'empty' }} clearfix" for="{{ tempData.path }}"><span class="key">{{ displayTitle }}</span> <span class="sortedBy text-muted">{{ data[data._selectedSortAttr] || '' }} ({{ tempData.size }})</span>
+  </label>
+
+  <ul ng-if="tempData.expanded" ng-init="data = fetchData(data, tempData, displayTitles)">
+
+    <div class="col-md-11 input-group" ng-if="tempData.orderableAttributes.length && data.length >= 2">
+
+      <div class="input-group-addon"><i class="fa fa-filter"></i>
+      </div>
+
+      <input class="form-control btn-block" placeholder="Filter" type="search" ng-model="tempData.searchText" />
+
+      <div class="input-group-addon">
+
+        <select class="btn-link" ng-options="'Sort by ' + sortAttr for sortAttr in tempData.orderableAttributes" ng-model="tempData.selectedSortAttr" ng-change="tempData.selectedSortAttrNoQuotes = unexpressionify(tempData.selectedSortAttr); tempData.orderableAttributes = reorderOrderBy(tempData.selectedSortAttr, tempData.orderableAttributes)">
+        </select>
+
+      </div>
+
+    </div>
+
+    <div class="block">
+      <table class="table table-condensed table-striped">
+        <tr ng-repeat="(key, data) in data | filter:tempData.searchText | orderBy:tempData.orderableAttributes | limitTo:tempData.limit track by $index" ng-if="!_.instanceOf(data, 'object') && (key.toString().charAt(0) !== '_')">
+          <td>{{ currentTempData.labelMap[key] ? currentTempData.labelMap[key] : key }}</td>
+          <td class="{{ !data ? 'text-warning' : '' }}">{{ data ? data : '[Empty]' }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <li class="animate-repeat" ng-repeat="(key, data) in data | filter:tempData.searchText | orderBy:tempData.orderableAttributes | limitTo:tempData.limit" ng-if="_.instanceOf(data, 'object') && (key.toString().charAt(0) !== '_')" ng-include="whichNgtemplate(data, tempData.selectedSortAttrNoQuotes, tempData.displayKeys)"></li>
+
+    <li class="more" ng-if="_.instanceOf(data, 'Array') && data.length > tempData.limit">
+      <button class="btn btn-primary btn-sm" ng-click="tempData.limit = tempData.limit * 2">Show {{ data.length - tempData.limit }} more (showing {{ tempData.limit }}/{{ data.length }}) ...</button>
+    </li>
+
+  </ul>
+
+</div>

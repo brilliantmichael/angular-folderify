@@ -1,0 +1,48 @@
+<div class="table-fixedheader-outer-container">
+  <div class="table-fixedheader-header">&nbsp;</div>
+  <div class="table-fixedheader-inner-container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>
+            <div>SKU</div>
+          </th>
+          <th>
+            <div>Title</div>
+          </th>
+          <th width="7%">
+            <div>Product type</div>
+          </th>
+          <th>
+            <div>Varietal</div>
+          </th>
+          <th>
+            <div>Brand</div>
+          </th>
+          <th width="7%">
+            <div>Quantity Available</div>
+          </th>
+          <th>
+            <div>Status</div>
+          </th>
+          <th width="7%">
+            <div>Wholesale Cost</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="product in activeData | orderBy:currentTempData.orderableAttributes track by $index" ng-init="pId = product['dropship supplier id'] + '_' + product.sku">
+          <td>{{ product.sku }}</td>
+          <td><small>{{ product.title }}</small>
+          </td>
+          <td>{{ product["Details : Product type"] }}</td>
+          <td>{{ product["Details : Varietal"] }}</td>
+          <td>{{ product["brand"] }}</td>
+          <td>{{ product["quantity_available"] }}</td>
+          <td>{{ product["status"] }}</td>
+          <td>{{ product["wholesale cost"] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

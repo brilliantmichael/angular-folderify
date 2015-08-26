@@ -1,0 +1,76 @@
+<div class="media padding-1x">
+  <a href="#" class="pull-left">
+    <img src="assets/images/institution-default.png" class="media-object" alt="">
+  </a>
+  <div class="media-body padding-1x">
+    <h3 class="media-heading">{{ activeData["Company"] }} <small>{{ activeData["Account ID"] }}</small></h3>
+    <br>
+    <div class="panel panel-default">
+    <table class="table table-condensed table-striped">
+      <tr>
+        <td>Date Registered</td>
+        <td>{{ activeData["Date Registered"] }}</td>
+      </tr>
+      <tr>
+        <td>ABN/ACN</td>
+        <td>{{ activeData["ABN/ACN"] }}</td>
+      </tr>
+      <tr>
+        <td>Website</td>
+        <td>{{ activeData["website"] }}</td>
+      </tr>
+      <tr>
+        <td>Default margin rate</td>
+        <td>{{ _.getByPath(activeData, 'margin_rates.default') }}%</td>
+      </tr>
+      <tr>
+        <td>Default shipping rate</td>
+        <td>{{ _.getByPath(activeData, 'shipping_rates.default') }}%</td>
+      </tr>
+      <tr>
+        <td>Number of profiles</td>
+        <td>{{ _.getByPath(activeData, 'people.length') }}</td>
+      </tr>
+      <tr>
+        <td>Number of products in Dropship</td>
+        <td>{{ _.getByPath(activeData, 'Products.length') }}</td>
+      </tr>
+    </table>
+    </div>
+    <section>
+      <h3>Addresses</h3>
+      <div ng-repeat="address in activeData.addresses track by $index">
+        <div class="panel panel-default">
+        <table class="table table-condensed table-striped table-minimise-col1">
+          <caption class="lead">{{ address.type }}</caption>
+          <tr>
+            <td><div>Phone</div></td>
+            <td>{{ address.Phone }}</td>
+          </tr>
+          <tr>
+            <td><div>Location</div></td>
+            <td>{{ address.Location }}</td>
+          </tr>
+          <tr>
+            <td><div>Address 1</div></td>
+            <td>{{ address["Address 1"] }}</td>
+          </tr>
+          <tr>
+            <td><div>Suburb/Town</div></td>
+            <td>{{ address["Suburb/Town"] }}</td>
+          </tr>
+          <tr>
+            <td><div>State</div></td>
+            <td>{{ address.State }}</td>
+          </tr>
+          <tr>
+            <td><div>Post Code</div></td>
+            <td>{{ address["Post Code"] }}</td>
+          </tr>
+        </table>
+        </div>
+        <br>
+      </div>
+    </section>
+  </div>
+</div>

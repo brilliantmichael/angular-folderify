@@ -1,0 +1,122 @@
+<div class="table-fixedheader-outer-container">
+  <div class="table-fixedheader-header">&nbsp;</div>
+  <div class="table-fixedheader-inner-container">
+    <table drag-select drag-select-ids="ids" class="table table-bordered table-condensed table-striped table-fixedheader table-minimise-collast" id="table_data.Suppliers[].proposedSkus">
+      <thead>
+        <tr>
+          <th>
+            <div>Title</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Date added</div>
+          </th>
+          <th style="width:7.5%">
+            <div>% Complete</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Image received</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Image processed</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Price checked</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Copy written</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Stock count</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Validated</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Published</div>
+          </th>
+          <th style="width:7.5%">
+            <div>Live</div>
+          </th>
+          <th style="width:1%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(key, product) in activeData | orderBy:currentTempData.orderableAttributes" ng-init="title = product['title']">
+          <td class="small">{{ product.title }}</td>
+          <td>{{ product.dateAdded }}</td>
+          <td class="text-center">{{ product.progress ? ((_.keys(_.pick(product.progress, _.identity)).length * 12.5)) : '0' }}%</td>
+          <td class="text-center" ng-class="{ success: product.progress['Image received'] }" id="td:{{ title }}:Image received">
+            <i ng-class="{ 'fa fa-check': product.progress['Image received'] }" id="tick:{{ title }}:Image received" type="checkbox"></i>
+          </td>
+          <td class="text-center" ng-class="{ success: product.progress['Image processed'] }" id="td:{{ title }}:Image processed">
+            <i ng-class="{ 'fa fa-check': product.progress['Image processed'] }" id="tick:{{ title }}:Image processed" type="checkbox"></i>
+          </td>
+          <td class="text-center" ng-class="{ success: product.progress['Price checked'] }" id="td:{{ title }}:Price checked">
+            <i ng-class="{ 'fa fa-check': product.progress['Price checked'] }" id="tick:{{ title }}:Price checked" type="checkbox"></i>
+          </td>
+          <td class="text-center" ng-class="{ success: product.progress['Copy written'] }" id="td:{{ title }}:Copy written">
+            <i ng-class="{ 'fa fa-check': product.progress['Copy written'] }" id="tick:{{ title }}:Copy written" type="checkbox"></i>
+          </td>
+          <td class="text-center" ng-class="{ success: product.progress['Stock count'] }" id="td:{{ title }}:Stock count">
+            <i ng-class="{ 'fa fa-check': product.progress['Stock count'] }" id="tick:{{ title }}:Stock count" type="checkbox"></i>
+          </td>
+          <td class="text-center" ng-class="{ success: product.progress['Validated'] }" id="td:{{ title }}:Validated">
+            <i ng-class="{ 'fa fa-check': product.progress['Validated'] }" id="tick:{{ title }}:Validated" type="checkbox"></i>
+          </td>
+          <td class="text-center" ng-class="{ success: product.progress['Published'] }" id="td:{{ title }}:Published">
+            <i ng-class="{ 'fa fa-check': product.progress['Published'] }" id="tick:{{ title }}:Published" type="checkbox"></i>
+          </td>
+          <td class="text-center" ng-class="{ success: product.progress['Live'] }" id="td:{{ title }}:Live">
+            <i ng-class="{ 'fa fa-check': product.progress['Live'] }" id="tick:{{ title }}:Live" type="checkbox"></i>
+          </td>
+          <td>
+            <button type="button" class="close" title="Remove" ng-click="viewFunctions.removeProduct(activeData, title)">&times;</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="padding-1x">
+      <div class="clearfix">
+        <div class="pull-right">
+
+          <button type="button" class="pull-right btn btn-success" ng-click="viewFunctions.save(activeData, currentTempData.primaryValueParent, 'table_' + currentTempData.path )">Save</button>
+          <span class="pull-right">&nbsp;</span>
+          <button type="button" class="pull-right btn btn-default" title="Uncheck selected" ng-click="viewFunctions.toggleCheck(ids, activeData, false)"><i class="fa fa-square"></i>
+          </button>
+          <span class="pull-right">&nbsp;</span>
+          <button type="button" class="pull-right btn btn-default" title="Check selected" ng-click="viewFunctions.toggleCheck(ids, activeData, true)"><i class="fa fa-check-square"></i>
+          </button>
+          <span class="pull-right">&nbsp;</span>
+          <button class="pull-right btn btn-default" type="button" ng-disabled="!activeData.length" ng-click="viewFunctions.exportTable(activeData)">Save table</button>
+
+        </div>
+        <div class="pull-left">
+
+          <div flow-init flow-files-submitted="viewFunctions.onFileInput($flow.files, activeData)">
+            <!-- flow-files-submitted="_.log(_.keys($flow))" flow-file-success="$file.msg = $message" -->
+
+            <span class="btn btn-default btn-file">Add more SKUs... <input id="supplierProposedSkus_fileinput" type="file" flow-btn/></span>
+            <!-- onchange="angular.element(this).scope().viewFunctions.onFileInput(this.files)" -->
+
+            <!--<table class="table table-bordered table-striped table-condensed">
+            <tr ng-repeat="file in $flow.files">
+              <td>{{$index+1}}</td>
+              <td>{{file.name}}</td>
+              <td>{{file.msg}}</td>
+            </tr>
+          </table>-->
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="padding-1x clearfix">
+      <pre>{{ activeData[0] | json }}</pre>
+    </div>-->
+
+  </div>
+</div>

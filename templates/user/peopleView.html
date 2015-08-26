@@ -1,0 +1,21 @@
+<div class="media padding-1x">
+  <a href="#" class="pull-left">
+    <img src="assets/images/avatar-default.png" class="media-object" alt="" height="90" width="90">
+  </a>
+  <div class="media-body">
+    <h3 class="media-heading">{{ activeData.firstname }} {{ activeData.lastname }} <small>{{ activeData.role }}</small></h3>
+    <hr>
+    <section>
+      <h4>Phone Numbers</h4>
+      <ul>
+        <li ng-repeat="phonenumber in activeData.phonenumbers track by $index">{{ phonenumber }}</li>
+      </ul>
+    </section>
+    <section>
+      <h4>Emails</h4>
+      <ul>
+        <li ng-repeat="email in activeData.emails track by $index">{{ email }}</li>
+      </ul>
+    </section>
+  </div>
+</div>

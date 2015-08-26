@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="author" content="Michael Isidro">
+  <meta name="keywords" content="Perpetually deep JSON-to-folder displayer with data-binding">
+  <meta name="description" content="A JSON object displayer with data-binding">
+  <meta name="robots" content="NOINDEX, NOFOLLOW">
+
+  <!-- Google+ signin parameters -->
+  <meta name="google-signin-clientid" content="374140076982-sdk7mbsaku8o13d8b5bf1h4miqoi73up.apps.googleusercontent.com">
+  <meta name="google-signin-cookiepolicy" content="single_host_origin">
+  <meta name="google-signin-scope" content="https://www.googleapis.com/auth/userinfo.email">
+  <meta name="google-signin-redirecturi" content="postmessage">
+  <meta name="google-signin-accesstype" content="offline">
+  <meta name="google-signin-theme" content="dark">
+
+  <title>JSON object displayer (as folders)</title>
+
+  <!-- Bootstrap/Fontawesome CSS -->
+  <!--<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.5/united/bootstrap.min.css">-->
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+  <!-- angular -->
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.12/angular-csp.css">
+
+  <!--  alertify.js CSS -->
+  <link rel="stylesheet" href="assets/css/alertify-.css">
+  <link rel="stylesheet" href="assets/css/alertify-default.css">
+
+  <!-- Custom app-specific CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/bubble.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+
+  <!-- Inline JS-editable CSS -->
+  <style id="dynamic-stylesheet">
+  .tree .people a:before {
+    content: "\f007";
+  }
+  .tree .products a:before {
+    content: "\f16b";
+  }
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <img height="36" alt="Brand" src="assets/images/logo.png">
+        </a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li id="signinLine" class="fade in">
+          <a>
+            <button type="button" id="signinButton" class="btn btn-danger">
+              <span>Sign in to</span> <i class="fa fa-google-plus"></i>
+            </button>
+          </a>
+        </li>
+        <li id="signoutLine" class="text-right fade hide out">
+          <a>
+            <span id="signedinEmail"></span>
+            <button type="button" id="signoutButton" class="btn-link">Sign out</button>
+          </a>
+        </li>
+        <li>
+          <a>
+            <img id="signedinProfileImage" height="26" src="" alt="" class="img-circle fade out hide">
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="pull-left padding-1x btn-block text-center text-white fade in" id="app-spinner">
+    <div class="fa fa-spin fa-spinner fa-5x"></div>
+  </div>
+  <div class="ng-cloak" ng-cloak ng-controller="TreeController">
+
+    <div class="row">
+
+      <div class="col-md-4">
+        <ul class="tree pull-left btn-block" ng-show="tempData.size">
+          <li ng-repeat="(key, data) in data | filter:tempData.searchText | orderBy:tempData.orderableAttributes | limitTo:tempData.limit track by $index" ng-include="whichNgtemplate(data, tempData.selectedSortAttrNoQuotes, tempData.displayKeys)"></li>
+          <li class="more" ng-if="instanceOf(data, 'Array') && data.length > tempData.limit">
+            <button class="btn btn-default btn-sm" ng-click="tempData.limit = tempData.limit * 2">{{ data.length - tempData.limit }} more (showing {{ tempData.limit }}/{{ data.length }}) ...</button>
+          </li>
+        </ul>
+      </div>
+      <!-- /.col-md-4 -->
+      <div class="col-md-8 hidden-xs hidden-sm">
+        <div class="view-container affix col-md-8" ng-init="userTemplate(currentTempData.pathNoIndices, true)">
+
+          <div class="bubble-popover view" ng-if="userTemplate(currentTempData.pathNoIndices, true) && activeData">
+            <div class="arrow"></div>
+            <div class="bubble-title">
+
+              <ul class="breadcrumb">
+                <li ng-repeat="crumb in displayTitles track by $index">{{ crumb }}</li>
+              </ul>
+
+            </div>
+            <div class="bubble-content">
+              <ng-include ng-if="userTemplate" src="userTemplate(currentTempData.pathNoIndices)"></ng-include>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.affix -->
+      </div>
+      <!-- /.col-md-8 -->
+    </div>
+    <!-- /.row-fluid -->
+  </div>
+  <!-- /ng-app:tree -->
+
+
+<!-- Scripts at bottom of the page / RequireJS initialised -->
+<script>
+window.developmentMode = true;
+var s = document.createElement('script');
+s.setAttribute('data-main', 'assets/js/common.js?t=' + new Date().getTime());
+s.setAttribute('src', 'assets/js/vendor/require-2.1.15.js');
+document.head.appendChild(s);
+</script>
+
+</body>
+
+
+
+</html>
